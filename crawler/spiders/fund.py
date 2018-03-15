@@ -3,8 +3,8 @@ from datetime import date, timedelta
 
 import scrapy
 
-from ..items.fund import MutualFundItem
-from ..spiders.base import BaseSpider
+from crawler.items.fund import MutualFundItem
+from crawler.spiders import BaseSpider
 
 
 class MutualFundSpider(BaseSpider):
