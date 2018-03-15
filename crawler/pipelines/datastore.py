@@ -1,13 +1,14 @@
+import os
 import uuid
 
 from google.cloud import datastore
 
 
 class DatastorePipeline:
-    KIND_NAME = 'MutualFund'
     DATASTORE_BATCH_LIMIT = 500
 
     def __init__(self, crawler):
+        self.kind_prefix = os.environ.get('DATASTORE_KIND_PREFIX')
         self.item_count = None
         self.batches = None
 
@@ -26,8 +27,18 @@ class DatastorePipeline:
         current_batch = self.batches[int((self.item_count - 1) / DatastorePipeline.DATASTORE_BATCH_LIMIT)]
 
         item_dict = dict(item)
-        entity = datastore.Entity(self.client.key(self.KIND_NAME, str(uuid.uuid4())),
-                                  exclude_from_indexes=item.exclude_from_indexes)
+
+        kind_name = '{}{}'.format(
+            self.kind_prefix if self.kind_prefix else '',
+            item.__class__.__name__)
+
+        if hasattr(item, 'exclude_from_indexes'):
+            exclude_from_indexes = item.exclude_from_indexes
+        else:
+            exclude_from_indexes = []
+
+        entity = datastore.Entity(self.client.key(kind_name, str(uuid.uuid4())),
+                                  exclude_from_indexes=exclude_from_indexes)
         entity.update(item_dict)
         current_batch.put(entity)
 
