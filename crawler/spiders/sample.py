@@ -1,5 +1,4 @@
 import json
-import uuid
 
 import scrapy
 
@@ -8,6 +7,7 @@ from crawler.items.sample import SampleItem
 
 class SampleSpider(scrapy.Spider):
     name = 'SampleSpider'
+    item_pipelines = {}  # Disabled all pipelines
 
     def start_requests(self):
         yield scrapy.Request(
@@ -22,6 +22,6 @@ class SampleSpider(scrapy.Spider):
         response_json = json.loads(response.body_as_unicode())
 
         for resource in response_json:
-            item = SampleItem(str(uuid.uuid4()))
+            item = SampleItem()
             item['item_json'] = json.dumps(resource)
             yield item
