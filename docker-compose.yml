@@ -1,0 +1,14 @@
+version: '2'
+
+services:
+  scrapyd:
+    build:
+      context: .
+      dockerfile: ./compose/scrapyd/Dockerfile
+    volumes:
+      - .scrapyd:/scrapyd/data
+      - ~/.google:/root/.google
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS=/root/.google/WealthDashboard-f8fd68bdf873.json
+    ports:
+      - "6800:6800"
