@@ -7,9 +7,13 @@ from crawler.items.sample import SampleItem
 
 class SampleSpider(scrapy.Spider):
     name = 'SampleSpider'
-    item_pipelines = {}  # Disabled all pipelines
+    custom_settings = {
+        'ITEM_PIPELINES': {},  # Disabled all pipelines
+    }
 
     def start_requests(self):
+        print(self.project1)
+
         yield scrapy.Request(
             url='https://jsonplaceholder.typicode.com/posts',
             callback=self.parse,
