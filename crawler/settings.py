@@ -15,6 +15,7 @@ BOT_NAME = 'wealth-crawler'
 
 SPIDER_MODULES = [
     'crawler.spiders.fund',
+    'crawler.spiders.sample',
 ]
 # NEWSPIDER_MODULE = 'myproject.spiders'
 
