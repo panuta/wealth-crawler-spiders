@@ -4,9 +4,10 @@ from datetime import date, timedelta
 import scrapy
 
 from crawler.items.fund import MutualFundItem
+from crawler.spiders.base import BaseSpider
 
 
-class MutualFundSpider(scrapy.Spider):
+class MutualFundSpider(BaseSpider):
     name = 'MutualFundSpider'
 
     def start_requests(self):
