@@ -10,12 +10,7 @@ class SampleSpider(scrapy.Spider):
     custom_settings = {
         'ITEM_PIPELINES': {},  # Disabled all pipelines
     }
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        print('>>>>>> KWARGS')
-        print(kwargs)
-
+    
     def start_requests(self):
         yield scrapy.Request(
             url='https://jsonplaceholder.typicode.com/posts',
