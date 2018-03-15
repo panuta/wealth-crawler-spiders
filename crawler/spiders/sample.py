@@ -1,6 +1,6 @@
 import json
+import uuid
 
-import shortuuid
 import scrapy
 
 from crawler.items.sample import SampleItem
@@ -22,6 +22,6 @@ class SampleSpider(scrapy.Spider):
         response_json = json.loads(response.body_as_unicode())
 
         for resource in response_json:
-            item = SampleItem(shortuuid.uuid())
+            item = SampleItem(str(uuid.uuid4()))
             item['item_json'] = json.dumps(resource)
             yield item
